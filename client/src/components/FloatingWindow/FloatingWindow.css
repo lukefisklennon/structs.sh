@@ -1,0 +1,8 @@
+.Hello {
+    border: solid black 2px;
+    position: fixed;
+    top: 40%;
+    left: 40%;
+    height: 400px;
+    width: 400px;
+}
