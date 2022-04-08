@@ -3,13 +3,13 @@ import './FloatingWindow.css'
 
 interface Props {
   // initial position
-  pos: { x: number, y: number };
+  x: number;
+  y: number;
 }
 
-const FloatingWindow: FC<Props> = ({ pos }) => {
-
+const FloatingWindow: FC<Props> = ({ x, y }) => {
   const [state, setState] = useState({
-    pos: pos,
+    pos: {x, y},
     dragging: false,
     rel: null // position relative to the cursor
   })

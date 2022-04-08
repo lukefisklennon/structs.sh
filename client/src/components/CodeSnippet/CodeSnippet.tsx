@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import FloationgWindow from '../FloatingWindow/FloatingWindow'
+import FloatingWindow from '../FloatingWindow/FloatingWindow'
 
 interface Props { }
 
@@ -10,11 +10,8 @@ const CodeSnippet: FC<Props> = () => (
       style={{ height: '100%', width: '100%', background: 'rgba(235, 235, 235)', overflowY: 'scroll', padding: 15 }}
     />
 
-    <FloationgWindow pos={{ x: 10, y: 10 }}>
-
-    </FloationgWindow>
+    <FloatingWindow x={0} y={400} />
   </>
-
 );
 
 export default CodeSnippet;
