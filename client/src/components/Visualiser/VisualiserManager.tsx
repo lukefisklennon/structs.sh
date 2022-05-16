@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import Notification from 'utils/Notification';
 import initLinkedListVisualiser from 'visualiser-src/linked-list-visualiser/initialiser';
 import initBSTVisualiser from 'visualiser-src/binary-search-tree-visualiser/initialiser';
@@ -9,6 +9,8 @@ import { VisualiserController } from './Controller';
 import GUIMode from './Controller/GUIMode/GUIMode';
 import styles from './VisualiserDashboard.module.scss';
 import getCommandExecutor from './executableCommands';
+
+import FloatingWindow from '../FloatingWindow/FloatingWindow'
 
 interface Props {
   topicTitle: string;
@@ -31,6 +33,7 @@ const VisualiserInterface: React.FC<Props> = ({ topicTitle }) => {
 
   const [visualiser, setVisualiser] = useState<any>({});
 
+  const [floating, setFloating] = useState(false);
   /* ------------------------ Visualiser Initialisation ----------------------- */
 
   useEffect(() => {
@@ -119,11 +122,14 @@ const VisualiserInterface: React.FC<Props> = ({ topicTitle }) => {
       />
       <Pane orientation="vertical" minSize={150.9}>
         {/* terminalMode ? (
-          <Terminal executeCommand={executeCommand} topicTitle={topicTitle} />
-        ) : ( */}
+        <Terminal executeCommand={executeCommand} topicTitle={topicTitle} />
+      ) : ( */}
         <GUIMode executeCommand={executeCommand} topicTitle={topicTitle} />
-        <CodeSnippet />
+        <FloatingWindow>
+          <CodeSnippet />
+        </FloatingWindow>
       </Pane>
+
     </Box>
   );
 };

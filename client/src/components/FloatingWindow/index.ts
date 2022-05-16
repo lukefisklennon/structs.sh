@@ -1,1 +1,1 @@
-export { default as CodeSnippet } from './FloatingWindow';
+export { default as FloatingWindow } from './FloatingWindow';
