@@ -50,10 +50,135 @@ class GraphicalAVL extends GraphicalDataStructure {
       return animationProducer;
     }
 
-    this.root = this.doInsert(this.root, input, animationProducer);
-    this.updateNodePositions();
-    
+    const node: Node = {
+      nodeTarget: null,
+      textTarget: null,
+      leftLineTarget: null,
+      rightLineTarget: null,
+      leftArrowTarget: null,
+      rightArrowTarget: null,
+      left: null,
+      right: null,
+      value: input,
+      x: 0,
+      y: 0,
+    };
+
+    if (this.root == null) {
+      this.root = node;
+      this.updateNodePositions();
+      animationProducer.doAnimation(animationProducer.createNode, node);
+    } else {
+      let currentNode: Node = this.root;
+
+      while (currentNode) {
+        animationProducer.doAnimation(
+          animationProducer.halfHighlightNode,
+          currentNode
+        );
+
+        if (node.value < currentNode.value) {
+          if (currentNode.left == null) {
+            currentNode.left = node;
+            this.updateNodePositions();
+            animationProducer.doAnimation(
+
+              animationProducer.createNodeLeft,
+              node,
+              currentNode
+            );
+            animationProducer.doAnimation(
+              animationProducer.unhighlightAVL,
+              this.root
+            );
+            
+            this.balanceTree(this.root, input, animationProducer);
+            return animationProducer;
+          }
+
+          animationProducer.doAnimation(
+            animationProducer.highlightLine,
+            currentNode.leftLineTarget,
+            currentNode.leftArrowTarget
+          );
+
+          currentNode = currentNode.left;
+        } else {
+          if (currentNode.right == null) {
+            currentNode.right = node;
+            this.updateNodePositions();
+            animationProducer.doAnimation(
+              animationProducer.createNodeRight,
+              node,
+              currentNode
+            );
+            animationProducer.doAnimation(
+              animationProducer.unhighlightAVL,
+              this.root
+            );
+            
+            this.balanceTree(this.root, input, animationProducer);
+            return animationProducer;
+          }
+
+          animationProducer.doAnimation(
+            animationProducer.highlightLine,
+            currentNode.rightLineTarget,
+            currentNode.rightArrowTarget
+          );
+
+          currentNode = currentNode.right;
+        }
+      }
+    }
+
+    // Balance the tree
+    this.balanceTree(this.root, input, animationProducer);
+    animationProducer.doAnimation(animationProducer.unhighlightAVL, this.root)
+
     return animationProducer;
+  }
+
+  public balanceTree(node: Node, input: number, animationProducer: AVLInsertAnimationProducer): void {
+    if (node === null) {
+      return;
+    }
+
+    const leftHeight: number = this.getHeight(node.left);
+    const rightHeight: number = this.getHeight(node.right);
+
+    // console.log(leftHeight, rightHeight);
+
+    if (leftHeight - rightHeight > 1) {
+      console.log('left heavy');
+      if (input > node.left.value) {
+        this.rotateLeft(input, false).allRunners.forEach((runner) => {
+          animationProducer.allRunners.push(runner);
+        });
+      } 
+      this.rotateRight(input).allRunners.forEach((runner) => {
+        animationProducer.allRunners.push(runner);
+      });
+    } else if (rightHeight - leftHeight > 1) {
+      console.log('right heavy');
+      if (input < node.right.value) {
+        this.rotateRight(input).allRunners.forEach((runner) => {
+          animationProducer.allRunners.push(runner);
+        });
+      }
+      this.rotateLeft(input, false).allRunners.forEach((runner) => {
+        animationProducer.allRunners.push(runner);
+      });
+    }
+
+    this.balanceTree(node.left, input, animationProducer);
+    this.balanceTree(node.right, input, animationProducer);
+  }
+
+  // returns the height of the tree
+  public getHeight(node: Node): number {
+    if (node === null) return 0;
+    return Math.max(this.getHeight(node.left), this.getHeight(node.right)) + 1;
   }
 
   public doInsert(
@@ -160,8 +285,7 @@ class GraphicalAVL extends GraphicalDataStructure {
 
     this.root = this.doRotateLeft(this.root, input, animationProducer);
     this.updateNodePositions();
-    animationProducer.doAnimationAndHighlight(
-      5,
+    animationProducer.doAnimation(
       animationProducer.updateAndUnhighlightAVL,
       this.root
     );
