@@ -102,7 +102,7 @@ export default abstract class AnimationProducer {
     this.finishSequence();
   }
 
-  // these 2 functions are used to "decorate" animation function so each animation function doesn't
+  // these 3 functions are used to "decorate" animation function so each animation function doesn't
   // have to do code highlighting itself or push an animation sequence itself, which gives us more flexibility.
   // - fn: specifies an animation function and gets executed
   // - args: allows us to pass a variable amount of arguments which then get passed as arguments
@@ -110,6 +110,16 @@ export default abstract class AnimationProducer {
   public doAnimationAndHighlight(line: number, fn: any, ...args: any[]): void {
     fn.apply(this, args);
     this.highlightCode(line);
+  }
+
+  public doAnimationAndConditionalHighlight(line: number, cond: boolean, fn: any, ...args: any[]): void {
+    fn.apply(this, args);
+
+    if (cond) {
+      this.highlightCode(line);
+    } else {
+      this.finishSequence();
+    }
   }
 
   public doAnimation(fn: any, ...args: any[]): void {
