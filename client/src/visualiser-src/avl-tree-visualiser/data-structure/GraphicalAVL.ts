@@ -283,7 +283,7 @@ class GraphicalAVL extends GraphicalDataStructure {
 
     if (newRoot === null) return animationProducer;
 
-    this.root = this.doRotateLeft(this.root, input, animationProducer);
+    this.root = this.doRotateLeft(this.root, input, animationProducer, renderCode);
     this.updateNodePositions();
     animationProducer.doAnimation(
       animationProducer.updateAndUnhighlightAVL,
@@ -296,15 +296,17 @@ class GraphicalAVL extends GraphicalDataStructure {
   public doRotateLeft(
     node: Node,
     input: number,
-    animationProducer: AVLRotateAnimationProducer
+    animationProducer: AVLRotateAnimationProducer,
+    highlightCode: boolean
   ): Node {
-    animationProducer.doAnimationAndHighlight(1, animationProducer.halfHighlightNode, node);
+    animationProducer.doAnimationAndConditionalHighlight(1, highlightCode, animationProducer.halfHighlightNode, node);
     if (input === node.value) {
       const newRoot: Node = node.right;
 
       if (newRoot.left != null) {
-        animationProducer.doAnimationAndHighlight(
+        animationProducer.doAnimationAndConditionalHighlight(
           3,
+          highlightCode,
           animationProducer.movePointerToNewRootLeftChild,
           node,
           newRoot
@@ -317,8 +319,9 @@ class GraphicalAVL extends GraphicalDataStructure {
         );
       } else {
         animationProducer.doAnimation(animationProducer.hideLine, node.rightLineTarget);
-        animationProducer.doAnimationAndHighlight(
+        animationProducer.doAnimationAndConditionalHighlight(
           4,
+          highlightCode,
           animationProducer.assignNewRootLeftPointerToOldRoot,
           node,
           newRoot
@@ -331,21 +334,23 @@ class GraphicalAVL extends GraphicalDataStructure {
       return newRoot;
     }
     if (input < node.value) {
-      animationProducer.doAnimationAndHighlight(
+      animationProducer.doAnimationAndConditionalHighlight(
         7,
+        highlightCode,
         animationProducer.highlightLine,
         node.leftLineTarget,
         node.leftArrowTarget
       );
-      node.left = this.doRotateLeft(node.left, input, animationProducer);
+      node.left = this.doRotateLeft(node.left, input, animationProducer, highlightCode);
     } else {
-      animationProducer.doAnimationAndHighlight(
+      animationProducer.doAnimationAndConditionalHighlight(
         9,
+        highlightCode,
         animationProducer.highlightLine,
         node.rightLineTarget,
         node.rightArrowTarget
       );
-      node.right = this.doRotateLeft(node.right, input, animationProducer);
+      node.right = this.doRotateLeft(node.right, input, animationProducer, highlightCode);
     }
 
     return node;
