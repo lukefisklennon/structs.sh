@@ -17,7 +17,21 @@ while (curr != NULL) {
     }
     curr = curr->right;
   }
-}`;
+}
+LHeight = height(root->left);
+RHeight = height(root->right);
+if (LHeight - RHeight > 1) {
+  if (val > root->left->val) {
+    root->left = rotate_left(root->left);
+  }
+  root = rotate_right(root);
+} else if (RHeight - LHeight > 1) {
+  if (val < root->right->val) {
+    root->right = rotate_right(root->right);
+  }
+  root = rotate_left(root);
+}
+return root;`;
 
 export const rotateLeftCodeSnippet =
 `if (val == node->val) {
