@@ -60,12 +60,13 @@ class GraphicalAVL extends GraphicalDataStructure {
     if (this.root == null) {
       this.root = node;
       this.updateNodePositions();
-      animationProducer.doAnimation(animationProducer.createNode, node);
+      animationProducer.doAnimationAndHighlight(2, animationProducer.createNode, node);
     } else {
       let currentNode: Node = this.root;
 
       while (currentNode) {
-        animationProducer.doAnimation(
+        animationProducer.doAnimationAndHighlight(
+          6,
           animationProducer.halfHighlightNode,
           currentNode
         );
@@ -74,13 +75,14 @@ class GraphicalAVL extends GraphicalDataStructure {
           if (currentNode.left == null) {
             currentNode.left = node;
             this.updateNodePositions();
-            animationProducer.doAnimation(
-
+            animationProducer.doAnimationAndHighlight(
+              8,
               animationProducer.createNodeLeft,
               node,
               currentNode
             );
-            animationProducer.doAnimation(
+            animationProducer.doAnimationAndHighlight(
+              9,
               animationProducer.unhighlightAVL,
               this.root
             );
@@ -89,7 +91,8 @@ class GraphicalAVL extends GraphicalDataStructure {
             return animationProducer;
           }
 
-          animationProducer.doAnimation(
+          animationProducer.doAnimationAndHighlight(
+            11,
             animationProducer.highlightLine,
             currentNode.leftLineTarget,
             currentNode.leftArrowTarget
@@ -100,12 +103,14 @@ class GraphicalAVL extends GraphicalDataStructure {
           if (currentNode.right == null) {
             currentNode.right = node;
             this.updateNodePositions();
-            animationProducer.doAnimation(
+            animationProducer.doAnimationAndHighlight(
+              14,
               animationProducer.createNodeRight,
               node,
               currentNode
             );
-            animationProducer.doAnimation(
+            animationProducer.doAnimationAndHighlight(
+              15,
               animationProducer.unhighlightAVL,
               this.root
             );
@@ -114,12 +119,13 @@ class GraphicalAVL extends GraphicalDataStructure {
             return animationProducer;
           }
 
-          animationProducer.doAnimation(
+          animationProducer.doAnimationAndHighlight(
+            17,
             animationProducer.highlightLine,
             currentNode.rightLineTarget,
             currentNode.rightArrowTarget
           );
-
+          
           currentNode = currentNode.right;
         }
       }
@@ -169,42 +175,6 @@ class GraphicalAVL extends GraphicalDataStructure {
   public getHeight(node: Node): number {
     if (node === null) return 0;
     return Math.max(this.getHeight(node.left), this.getHeight(node.right)) + 1;
-  }
-
-  public doInsert(
-    node: Node,
-    input: number,
-    animationProducer: AVLInsertAnimationProducer
-  ): Node {
-    const newNode: Node = {
-      nodeTarget: null,
-      textTarget: null,
-      leftLineTarget: null,
-      rightLineTarget: null,
-      leftArrowTarget: null,
-      rightArrowTarget: null,
-      left: null,
-      right: null,
-      value: input,
-      x: 0,
-      y: 0,
-    };
-
-    if (node === null) {
-      node = newNode;
-      this.updateNodePositions();
-      animationProducer.doAnimation(animationProducer.createNode, node);
-      return node;
-    }
-
-    if (input < node.value) {
-      node.left = this.doInsert(node.left, input, animationProducer);
-    } else if (input > node.value) {
-      node.right = this.doInsert(node.right, input, animationProducer);
-    }
-
-    // for future reference: https://slides.com/haydensmith/comp2521-21t2-4-2#/5
-    return node;
   }
 
   // use this method after doing bst operations to update
