@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Box } from '@mui/material';
 import React, { FC } from 'react';
 import { Documentation } from 'visualiser-src/common/typedefs';
@@ -8,6 +9,13 @@ interface Props {
   executeCommand: (command: string, args: string[]) => string;
   topicTitle: string;
 }
+=======
+import React, { FC, useContext } from 'react';
+// import OperationsTree from './GUIOperations/OperationsTree';
+import { Alert, Box, List, Typography } from '@mui/material';
+import VisualiserContext from 'components/Visualiser/VisualiserContext';
+import OperationDetails from './OperationDetails';
+>>>>>>> fde244e42f40276f5d961329ce8ab572465071d8
 
 /**
  * The GUI form that lets users input arguments to a menu of commands and then
@@ -19,6 +27,7 @@ interface Props {
  * All the commands that the form supports are listed separately in the
  * `commandsInputRules.ts` file, where the terminal commands also reside.
  */
+<<<<<<< HEAD
 const GUIMode: FC<Props> = ({ documentation, executeCommand, topicTitle }) => (
   <Box sx={{ height: 'calc(100% - 64px)', overflow: 'auto' }}>
     <OperationsTree
@@ -28,5 +37,32 @@ const GUIMode: FC<Props> = ({ documentation, executeCommand, topicTitle }) => (
     />
   </Box>
 );
+=======
+const GUIMode = () => {
+  const { documentation, topicTitle } = useContext(VisualiserContext);
+
+  return !documentation ? (
+    <Alert severity="error">
+      No operations are defined for the topicTitle &apos;
+      {topicTitle}
+      &apos;
+    </Alert>
+  ) : (
+    <Box sx={{ padding: 2, overflow: 'auto', height: 'calc(100% - 64px)' }}>
+      <Typography color="textPrimary">{topicTitle}</Typography>
+      <List>
+        {Object.keys(documentation).map((command, idx) => (
+          <Box key={documentation[command].id}>
+            <OperationDetails
+              command={command}
+              isLast={idx === Object.keys(documentation).length - 1}
+            />
+          </Box>
+        ))}
+      </List>
+    </Box>
+  );
+};
+>>>>>>> fde244e42f40276f5d961329ce8ab572465071d8
 
 export default GUIMode;

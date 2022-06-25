@@ -1,5 +1,9 @@
 import { actualNodeDiameter, markerLength } from './constants';
+<<<<<<< HEAD
 import { Documentation } from './typedefs';
+=======
+import { DataStructure, Documentation } from './typedefs';
+>>>>>>> fde244e42f40276f5d961329ce8ab572465071d8
 
 /**
  * Calculates the starting and ending coordinates of a pointer, given the coordinates of the centres of the
@@ -50,3 +54,11 @@ export const injectIds = (documentation: Documentation): Documentation => {
 
   return documentation;
 };
+<<<<<<< HEAD
+=======
+
+export const isImplemented = (topicTitle: string): boolean =>
+  Object.values(DataStructure).includes(topicTitle.toLowerCase() as DataStructure);
+
+export const getTopics = (): string[] => Object.values(DataStructure);
+>>>>>>> fde244e42f40276f5d961329ce8ab572465071d8

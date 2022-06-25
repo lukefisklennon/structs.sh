@@ -2,7 +2,11 @@ import AnimationProducer from 'visualiser-src/common/AnimationProducer';
 import { SVG, Path, Svg } from '@svgdotjs/svg.js';
 import GraphicalDataStructure from 'visualiser-src/common/GraphicalDataStructure';
 import { Documentation } from 'visualiser-src/common/typedefs';
+<<<<<<< HEAD
 import { VISUALISER_CANVAS } from 'visualiser-src/common/constants';
+=======
+import { CODE_CANVAS, VISUALISER_CANVAS } from 'visualiser-src/common/constants';
+>>>>>>> fde244e42f40276f5d961329ce8ab572465071d8
 import currSvg from 'visualiser-src/linked-list-visualiser/assets/curr.svg';
 import prevSvg from 'visualiser-src/linked-list-visualiser/assets/prev.svg';
 import { injectIds } from 'visualiser-src/common/helpers';
@@ -140,12 +144,16 @@ export default class GraphicalLinkedList extends GraphicalDataStructure {
       if (this.head === null) {
         producer.doAnimationAndHighlight(11, producer.setHeadToNull, this.headPointer);
       } else {
+<<<<<<< HEAD
         producer.doAnimationAndHighlight(
           11,
           producer.pointHeadToNext,
           this.headPointer,
           this.head.next
         );
+=======
+        producer.doAnimationAndHighlight(11, producer.pointHeadToNext, this.headPointer, this.head);
+>>>>>>> fde244e42f40276f5d961329ce8ab572465071d8
       }
     } else {
       prev.next = curr.next;

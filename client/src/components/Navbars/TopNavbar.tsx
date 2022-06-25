@@ -14,18 +14,15 @@ import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { SxProps } from '@mui/system';
-import { ThemeMutationContext } from 'App';
+// import { ThemeMutationContext } from 'App';
 import logo from 'assets/img/logo.png';
-import { Modal } from 'components/Modal';
-import React, {
-  FC, useContext, useEffect, useState,
-} from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getTopics, Topic } from 'utils/apiRequests';
 import Notification from 'utils/Notification';
 import { titleToUrl } from 'utils/url';
+import { getTopics } from '../../visualiser-src/common/helpers';
 import Drawer from './Drawer';
-import SidebarContents from './SidebarContents';
+// import SidebarContents from './SidebarContents';
 import styles from './TopNavbar.module.scss';
 
 interface Props {
@@ -34,9 +31,8 @@ interface Props {
 }
 
 const TopNavbar: FC<Props> = ({ position = 'fixed', enableOnScrollEffect = true }) => {
-  const context = useContext(ThemeMutationContext);
-
-  const [topics, setTopics] = useState<Topic[]>([]);
+  // const context = useContext(ThemeMutationContext);
+  // const [topics, setTopics] = useState<Topic[]>([]);
 
   const [hasScrolledDown, setHasScrolledDown] = useState<boolean>(false);
 
@@ -64,11 +60,11 @@ const TopNavbar: FC<Props> = ({ position = 'fixed', enableOnScrollEffect = true 
 
   /* ------------------------------ Data Fetching ----------------------------- */
 
-  useEffect(() => {
-    getTopics()
-      .then((newTopics) => setTopics(newTopics))
-      .catch(() => console.log('TopNav: failed to get topics'));
-  }, []);
+  // useEffect(() => {
+  //   getTopics()
+  //     .then((newTopics) => setTopics(newTopics))
+  //     .catch(() => console.log('TopNav: failed to get topics'));
+  // }, []);
 
   /* --------------------------- Dropdown Callbacks --------------------------- */
 
@@ -161,11 +157,11 @@ const TopNavbar: FC<Props> = ({ position = 'fixed', enableOnScrollEffect = true 
       onClose={handleLearnMenuClose}
       className={styles.visualiserMenu}
     >
-      {topics
-        && topics.map((topic, idx) => (
+      {getTopics() &&
+        getTopics().map((topic, idx) => (
           <MenuItem key={idx} className={styles.item}>
-            <Link to={`/visualiser/${titleToUrl(topic.title)}`}>
-              <span>{topic.title}</span>
+            <Link to={`/visualiser/${titleToUrl(topic)}`}>
+              <span>{topic}</span>
             </Link>
           </MenuItem>
         ))}
@@ -201,7 +197,7 @@ const TopNavbar: FC<Props> = ({ position = 'fixed', enableOnScrollEffect = true 
         }}
       >
         <Toolbar>
-          <Drawer Contents={(props) => <SidebarContents {...props} />} />
+          {/* <Drawer Contents={(props) => <SidebarContents {...props} />} /> */}
           <Button
             color="info"
             onClick={handleLearnMenuOpen}
@@ -238,9 +234,9 @@ const TopNavbar: FC<Props> = ({ position = 'fixed', enableOnScrollEffect = true 
             </Link>
           </Box>
 
-          <IconButton className={styles.darkModeButton} onClick={() => context.toggleDarkMode()}>
+          {/* <IconButton className={styles.darkModeButton} onClick={() => context.toggleDarkMode()}>
             {context.isDarkMode ? <MoonIcon /> : <SunIcon />}
-          </IconButton>
+          </IconButton> */}
           {/* <Modal
             Button={() => (
               <Button color="info" sx={{ display: { xs: 'none', md: 'flex' } }}>
@@ -313,7 +309,7 @@ const TopNavbar: FC<Props> = ({ position = 'fixed', enableOnScrollEffect = true 
               <AccountCircle />
             </IconButton>
           </Box> */}
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+          {/* <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
               aria-label="show more"
@@ -324,10 +320,10 @@ const TopNavbar: FC<Props> = ({ position = 'fixed', enableOnScrollEffect = true 
             >
               <MoreIcon />
             </IconButton>
-          </Box>
+          </Box> */}
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
+      {/* {renderMobileMenu} */}
       {renderLearnMenu}
       {renderMenu}
     </Box>

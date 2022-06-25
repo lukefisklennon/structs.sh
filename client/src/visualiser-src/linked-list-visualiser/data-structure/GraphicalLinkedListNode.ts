@@ -6,8 +6,13 @@ import {
   topOffset,
   nodePathWidth,
 } from '../util/constants';
+<<<<<<< HEAD
 import { getPointerPath, Style } from '../util/util';
 import { actualNodeDiameter, markerLength, nodeDiameter, pathD, VISUALISER_CANVAS } from '../../common/constants';
+=======
+import { getPointerPath } from '../util/util';
+import { actualNodeDiameter, markerLength, pathD, VISUALISER_CANVAS } from '../../common/constants';
+>>>>>>> fde244e42f40276f5d961329ce8ab572465071d8
 
 function addMarker(add: Marker) {
   add.path(pathD);
@@ -34,7 +39,16 @@ export default class GraphicalLinkedListNode {
   }
 
   public static newHeadPointer() {
+<<<<<<< HEAD
     SVG().text('head').attr(textAttributes).opacity(1).attr({ 'font-size': 16 }).addTo(VISUALISER_CANVAS);
+=======
+    SVG()
+      .text('head')
+      .attr(textAttributes)
+      .opacity(1)
+      .attr({ 'font-size': 16 })
+      .addTo(VISUALISER_CANVAS);
+>>>>>>> fde244e42f40276f5d961329ce8ab572465071d8
     const headPointer = SVG()
       .path()
       .attr(pathAttributes)
@@ -44,23 +58,36 @@ export default class GraphicalLinkedListNode {
           actualNodeDiameter / 2,
           topOffset,
           actualNodeDiameter / 2 + nodePathWidth,
+<<<<<<< HEAD
           topOffset,
           Style.RIGHT
+=======
+          topOffset
+>>>>>>> fde244e42f40276f5d961329ce8ab572465071d8
         )
       )
       .addTo(VISUALISER_CANVAS);
 
+<<<<<<< HEAD
     console.log(headPointer);
 
+=======
+>>>>>>> fde244e42f40276f5d961329ce8ab572465071d8
     headPointer.marker('end', markerLength, markerLength, addMarker);
     return headPointer;
   }
 
   public static from(input: number) {
     const canvas = SVG(VISUALISER_CANVAS) as Svg;
+<<<<<<< HEAD
     const nodeShape = canvas.circle().attr(shapeAttributes);
     const nodeValue = canvas.text(String(input)).attr(textAttributes);
     const newPointer = canvas.path().attr(pathAttributes);
+=======
+    const newPointer = canvas.path().attr(pathAttributes);
+    const nodeShape = canvas.circle().attr(shapeAttributes);
+    const nodeValue = canvas.text(String(input)).attr(textAttributes);
+>>>>>>> fde244e42f40276f5d961329ce8ab572465071d8
     newPointer.marker('end', markerLength, markerLength, addMarker);
     return new GraphicalLinkedListNode({
       value: input,

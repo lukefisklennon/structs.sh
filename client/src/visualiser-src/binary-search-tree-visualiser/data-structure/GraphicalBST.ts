@@ -1,6 +1,13 @@
+<<<<<<< HEAD
 import { SVG, Container } from '@svgdotjs/svg.js';
 import GraphicalDataStructure from 'visualiser-src/common/GraphicalDataStructure';
 import { Documentation } from 'visualiser-src/common/typedefs';
+=======
+import { SVG } from '@svgdotjs/svg.js';
+import GraphicalDataStructure from 'visualiser-src/common/GraphicalDataStructure';
+import { Documentation } from 'visualiser-src/common/typedefs';
+import { CODE_CANVAS, VISUALISER_CANVAS } from 'visualiser-src/common/constants';
+>>>>>>> fde244e42f40276f5d961329ce8ab572465071d8
 import { injectIds } from 'visualiser-src/common/helpers';
 import BSTInsertAnimationProducer from '../animation-producer/BSTInsertAnimationProducer';
 import BSTRotateAnimationProducer from '../animation-producer/BSTRotateAnimationProducer';
