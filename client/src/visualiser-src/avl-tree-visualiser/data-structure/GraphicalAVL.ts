@@ -133,7 +133,7 @@ class GraphicalAVL extends GraphicalDataStructure {
 
     // Balance the tree
     this.balanceTree(this.root, input, animationProducer);
-    animationProducer.doAnimation(animationProducer.unhighlightAVL, this.root)
+    animationProducer.doAnimationAndHighlight(33, animationProducer.unhighlightAVL, this.root)
 
     return animationProducer;
   }
@@ -148,21 +148,20 @@ class GraphicalAVL extends GraphicalDataStructure {
 
     if (leftHeight - rightHeight > 1) {
       if (input > node.left.value) {
-        this.rotateLeft(node.left.value).allRunners.forEach((runner) => {
+        this.rotateLeft(node.left.value, 24, animationProducer).allRunners.forEach((runner) => {
           animationProducer.allRunners.push(runner);
         });
       } 
-      this.rotateRight(node.value).allRunners.forEach((runner) => {
+      this.rotateRight(node.value, 26, animationProducer).allRunners.forEach((runner) => {
         animationProducer.allRunners.push(runner);
       });
-      console.log(this.root);
     } else if (rightHeight - leftHeight > 1) {
       if (input < node.right.value) {
-        this.rotateRight(node.right.value).allRunners.forEach((runner) => {
+        this.rotateRight(node.right.value, 29, animationProducer).allRunners.forEach((runner) => {
           animationProducer.allRunners.push(runner);
         });
       }
-      this.rotateLeft(node.value).allRunners.forEach((runner) => {
+      this.rotateLeft(node.value, 31, animationProducer).allRunners.forEach((runner) => {
         animationProducer.allRunners.push(runner);
       });
     }
@@ -224,9 +223,10 @@ class GraphicalAVL extends GraphicalDataStructure {
     return this.getNodeRecursive(input, node.right);
   }
 
-  public rotateLeft(input: number): AVLRotateAnimationProducer {
+  public rotateLeft(input: number, codeHighlight: number, insertAnimationProducer: AVLInsertAnimationProducer): AVLRotateAnimationProducer {
     const animationProducer: AVLRotateAnimationProducer = new AVLRotateAnimationProducer();
-
+    animationProducer.highlightedLines = insertAnimationProducer.highlightedLines;
+    animationProducer.codeTargets = insertAnimationProducer.codeTargets;
     const oldRoot: Node = this.getNode(input);
 
     if (oldRoot === null) return animationProducer;
@@ -235,7 +235,7 @@ class GraphicalAVL extends GraphicalDataStructure {
 
     if (newRoot === null) return animationProducer;
 
-    this.root = this.doRotateLeft(this.root, input, animationProducer);
+    this.root = this.doRotateLeft(this.root, input, animationProducer, codeHighlight);
     this.updateNodePositions();
     animationProducer.doAnimation(
       animationProducer.updateAndUnhighlightAVL,
@@ -249,18 +249,21 @@ class GraphicalAVL extends GraphicalDataStructure {
     node: Node,
     input: number,
     animationProducer: AVLRotateAnimationProducer,
+    codeHighlight: number
   ): Node {
-    animationProducer.doAnimation(animationProducer.halfHighlightNode, node);
+    animationProducer.doAnimationAndHighlight(codeHighlight, animationProducer.halfHighlightNode, node);
     if (input === node.value) {
       const newRoot: Node = node.right;
 
       if (newRoot.left != null) {
-        animationProducer.doAnimation(
+        animationProducer.doAnimationAndHighlight(
+          codeHighlight,
           animationProducer.movePointerToNewRootLeftChild,
           node,
           newRoot
         );
-        animationProducer.doAnimation(
+        animationProducer.doAnimationAndHighlight(
+          codeHighlight,
           animationProducer.moveLeftPointerToOldRoot,
           node,
           newRoot
@@ -280,26 +283,30 @@ class GraphicalAVL extends GraphicalDataStructure {
       return newRoot;
     }
     if (input < node.value) {
-      animationProducer.doAnimation(
+      animationProducer.doAnimationAndHighlight(
+        codeHighlight,
         animationProducer.highlightLine,
         node.leftLineTarget,
         node.leftArrowTarget
       );
-      node.left = this.doRotateLeft(node.left, input, animationProducer);
+      node.left = this.doRotateLeft(node.left, input, animationProducer, codeHighlight);
     } else {
-      animationProducer.doAnimation(
+      animationProducer.doAnimationAndHighlight(
+        codeHighlight,
         animationProducer.highlightLine,
         node.rightLineTarget,
         node.rightArrowTarget
       );
-      node.right = this.doRotateLeft(node.right, input, animationProducer);
+      node.right = this.doRotateLeft(node.right, input, animationProducer, codeHighlight);
     }
 
     return node;
   }
 
-  public rotateRight(input: number): AVLRotateAnimationProducer {
+  public rotateRight(input: number, codeHighlight: number, insertAnimationProducer: AVLInsertAnimationProducer): AVLRotateAnimationProducer {
     const animationProducer: AVLRotateAnimationProducer = new AVLRotateAnimationProducer();
+    animationProducer.highlightedLines = insertAnimationProducer.highlightedLines;
+    animationProducer.codeTargets = insertAnimationProducer.codeTargets;
 
     const oldRoot: Node = this.getNode(input);
 
@@ -309,7 +316,7 @@ class GraphicalAVL extends GraphicalDataStructure {
 
     if (newRoot === null) return animationProducer;
 
-    this.root = this.doRotateRight(this.root, input, animationProducer);
+    this.root = this.doRotateRight(this.root, input, animationProducer, codeHighlight);
     this.updateNodePositions();
     animationProducer.doAnimation(
       animationProducer.updateAndUnhighlightAVL,
@@ -323,8 +330,9 @@ class GraphicalAVL extends GraphicalDataStructure {
     node: Node,
     input: number,
     animationProducer: AVLRotateAnimationProducer,
+    codeHighlight: number
   ): Node {
-    animationProducer.doAnimation(animationProducer.halfHighlightNode, node);
+    animationProducer.doAnimationAndHighlight(codeHighlight, animationProducer.halfHighlightNode, node);
     if (input === node.value) {
       const newRoot: Node = node.left;
 
@@ -359,14 +367,14 @@ class GraphicalAVL extends GraphicalDataStructure {
         node.leftLineTarget,
         node.leftArrowTarget
       );
-      node.left = this.doRotateRight(node.left, input, animationProducer);
+      node.left = this.doRotateRight(node.left, input, animationProducer, codeHighlight);
     } else {
       animationProducer.doAnimation(
         animationProducer.highlightLine,
         node.rightLineTarget,
         node.rightArrowTarget
       );
-      node.right = this.doRotateRight(node.right, input, animationProducer);
+      node.right = this.doRotateRight(node.right, input, animationProducer, codeHighlight);
     }
 
     return node;

@@ -73,7 +73,7 @@ export default abstract class AnimationProducer {
   public highlightCode(line: number): void {
     // unhighlight previously highlighted lines
     this.unhighlightCodeMultiple();
-
+    
     this.addSequenceAnimation(
       this.codeTargets[line - 1].rectTarget.animate(1).attr({
         fill: '#4beb9b',
@@ -110,16 +110,6 @@ export default abstract class AnimationProducer {
   public doAnimationAndHighlight(line: number, fn: any, ...args: any[]): void {
     fn.apply(this, args);
     this.highlightCode(line);
-  }
-
-  public doAnimationAndConditionalHighlight(line: number, cond: boolean, fn: any, ...args: any[]): void {
-    fn.apply(this, args);
-
-    if (cond) {
-      this.highlightCode(line);
-    } else {
-      this.finishSequence();
-    }
   }
 
   public doAnimation(fn: any, ...args: any[]): void {
