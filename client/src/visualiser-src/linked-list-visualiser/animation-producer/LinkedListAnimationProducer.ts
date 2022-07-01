@@ -7,6 +7,10 @@ import { getPointerPath } from '../util/util';
 
 // Class that produces SVG.Runners animating general linked list operations
 export default abstract class LinkedListAnimationProducer extends AnimationProducer {
+  // takes three parameters
+  // first is the index to be inserted
+  // second is the node to be created
+  // third is the total length of the current list
   public createNodeAt(index: number, newNode: GraphicalLinkedListNode, length: number) {
     let cx;
     let cy;
@@ -17,15 +21,20 @@ export default abstract class LinkedListAnimationProducer extends AnimationProdu
       cx = length * nodePathWidth + actualNodeDiameter / 2;
       cy = topOffset;
     }
+    // set svg to the new node
     newNode.boxTarget.cx(cx).cy(cy);
     newNode.numberTarget.cx(cx).cy(cy);
+    // let the nodes appear
     this.addSequenceAnimation(newNode.boxTarget.animate().attr({ opacity: 1 }));
     this.addSequenceAnimation(newNode.numberTarget.animate().attr({ opacity: 1 }));
   }
 
   public initialisePointer(pointerId: string) {
+    // set up the pointer
     const pointerSvg: Element = SVG(pointerId);
+    // let pointer moves
     pointerSvg.move(nodePathWidth + strokeWidth / 2, topOffset + actualNodeDiameter / 2);
+    // the pointer should always appear
     this.addSequenceAnimation(pointerSvg.animate().attr({ opacity: 1 }));
   }
 
@@ -35,6 +44,7 @@ export default abstract class LinkedListAnimationProducer extends AnimationProdu
   }
 
   public resetPointers() {
+    // previous and current pointers disappear
     this.addSequenceAnimation(SVG(CURRENT).animate().attr({ opacity: 0 }));
     this.addSequenceAnimation(SVG(PREV).animate().attr({ opacity: 0 }));
   }

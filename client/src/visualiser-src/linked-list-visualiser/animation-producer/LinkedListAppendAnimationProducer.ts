@@ -9,6 +9,8 @@ export default class LinkedListAppendAnimationProducer extends LinkedListAnimati
   }
 
   public addNodeAtEnd(newNode: GraphicalLinkedListNode, length: number) {
+    // insert index equals the total length
+    // e.g. if there are 5 nodes, then insert at index 5
     this.createNodeAt(length, newNode, length);
   }
 }

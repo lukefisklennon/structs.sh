@@ -28,6 +28,7 @@ export default class LinkedListDeleteAnimationProducer extends LinkedListAnimati
   }
 
   public deleteNode(node: GraphicalLinkedListNode) {
+    // make the node transparent
     this.addSequenceAnimation(node.pointerTarget.animate().attr({ opacity: 0 }));
     this.addSequenceAnimation(node.numberTarget.animate().attr({ opacity: 0 }));
     this.addSequenceAnimation(node.boxTarget.animate().attr({ opacity: 0 }));
