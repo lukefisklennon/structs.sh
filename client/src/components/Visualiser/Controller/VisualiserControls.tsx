@@ -188,32 +188,35 @@ const VisualiserControls = () => {
           fontSize="small"
           sx={{ fill: theme.palette.text.primary }}
         />
-        <input
-          type="range"
-          id="timelineSlider"
-          min="0"
-          max="100"
-          defaultValue="0"
-          step="0.01"
-          className={styles.timelineSlider}
-          onChange={(event) => {
-            if (userIsDraggingTimeline) {
-              handleDragTimeline(Number(event.target.value));
-            } else {
-              handleTimelineUpdate(Number(event.target.value));
-            }
-          }}
-          onMouseDown={() => {
-            setUserIsDraggingTimeline(true);
-            handlePause();
-          }}
-          onMouseUp={() => {
-            setUserIsDraggingTimeline(false);
-            if (isPlaying) {
-              handlePlay();
-            }
-          }}
-        />
+        <Box width="100%" position="relative">
+          <input
+            type="range"
+            id="timelineSlider"
+            min="0"
+            max="100"
+            defaultValue="0"
+            step="0.01"
+            className={styles.timelineSlider}
+            onChange={(event) => {
+              if (userIsDraggingTimeline) {
+                handleDragTimeline(Number(event.target.value));
+              } else {
+                handleTimelineUpdate(Number(event.target.value));
+              }
+            }}
+            onMouseDown={() => {
+              setUserIsDraggingTimeline(true);
+              handlePause();
+            }}
+            onMouseUp={() => {
+              setUserIsDraggingTimeline(false);
+              if (isPlaying) {
+                handlePlay();
+              }
+            }}
+          />
+          <Box height="100%" width="4%" bgcolor="red" position="absolute" top="0" left="0" />
+        </Box>
       </Box>
       <Button className={styles.resetButton} onClick={handleGenerate}>
         <Typography color="textPrimary" sx={{ whiteSpace: 'nowrap' }}>
