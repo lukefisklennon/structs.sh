@@ -8,14 +8,18 @@ import { SiC } from 'react-icons/si';
 const TopicTree = () => {
   const theme: Theme = useTheme();
   return (
-    <Box height="100%" paddingLeft={2} bgcolor={theme.palette.background.default}>
+    <Box height="100%" paddingLeft={2} bgcolor={theme.palette.background.default} style={{borderRight: "2px solid hsla(0, 0%, 100%, 15%)"}}>
       <TreeView
         defaultCollapseIcon={<FolderOpen />}
         defaultExpandIcon={<Folder />}
         defaultEndIcon={<SiC size="50%" />}
-        sx={{ width: '12vw' }}
+        sx={{ width: '16vw' }}
       >
-        <TreeItem nodeId="1" label="Linked List">
+        <TreeItem nodeId="-1" label="My Files">
+          <TreeItem nodeId="-2" label="custom.c" />
+          <TreeItem nodeId="-3" label="test.c" />
+        </TreeItem>
+        <TreeItem nodeId="1" label="Linked Lists">
           <TreeItem nodeId="2" label="linked_list.c" />
           <TreeItem nodeId="3" label="prepend.c" />
           <TreeItem nodeId="4" label="append.c" />
@@ -23,7 +27,7 @@ const TopicTree = () => {
           <TreeItem nodeId="6" label="search.c" />
           <TreeItem nodeId="7" label="delete.c" />
         </TreeItem>
-        <TreeItem nodeId="8" label="Binary Search Tree">
+        <TreeItem nodeId="8" label="Binary Search Trees">
           <TreeItem nodeId="9" label="bst.c" />
           <TreeItem nodeId="10" label="insert.c" />
           <TreeItem nodeId="11" label="traversal.c" />

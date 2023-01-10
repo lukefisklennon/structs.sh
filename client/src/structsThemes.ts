@@ -21,8 +21,8 @@ export const structsTheme = createTheme({
   palette: {
     ...baseOptions.palette,
     background: {
-      default: '#14113C',
-      paper: '#14113C',
+      default: '#292a35',
+      paper: '#292a35',
     },
     text: {
       primary: '#FFFFFF',

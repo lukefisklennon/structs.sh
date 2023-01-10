@@ -83,11 +83,11 @@ const VisualiserInterface: React.FC<VisualiserInterfaceProps> = ({ topicTitle })
   return (
     <VisualiserContext.Provider value={contextValues}>
       <Box display="flex" height="100vh">
-        <Box width="15vw">
+        <Box width="18vw">
           <TopicTree />
         </Box>
         {/* <Divider orientation="vertical" flexItem /> */}
-        <Box width="85vw">
+        <Box width="82vw" style={{background: "#292a35"}}>
           <Box display="flex" height="45vh" bgcolor={theme.palette.background.default} width="100%">
             <CodeEditor />
             <Divider orientation="vertical" flexItem light />

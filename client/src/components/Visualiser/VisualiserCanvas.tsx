@@ -30,8 +30,11 @@ const VisualiserCanvas: React.FC = () => {
     });
   }, [controller]);
   return (
-    <Box id="visualiser-container" margin="auto" width={window.screen.width}>
+    <Box style={{borderTop: "2px solid hsla(0, 0%, 100%, 15%)"}}>
+
+    <Box id="visualiser-container" margin="auto" width={window.screen.width} style={{filter: "invert(100%) hue-rotate(180deg)"}}>
       <svg id="visualiser-canvas" />
+    </Box>
     </Box>
   );
 };

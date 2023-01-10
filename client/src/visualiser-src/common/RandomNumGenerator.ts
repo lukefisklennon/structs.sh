@@ -3,8 +3,8 @@
 export const generateNumbers = () =>{
   const result = [];
   const set = new Set();
-  const min = 8;
-  const max = 12;
+  const min = 6;
+  const max = 6;
   const totalNodes = Math.floor(Math.random() * (max - min + 1) + min);
   for (let i = 0; i < totalNodes; i += 1) {
     const num = Math.ceil(Math.random() * 99);

@@ -39,7 +39,7 @@ const CodeEditor = () => {
       height="100%"
       width="60%"
       showPrintMargin={false}
-      fontSize="16px"
+      fontSize="20px"
       onChange={(value) => setCode(value)}
       markers={markers}
       value={code}

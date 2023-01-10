@@ -11,7 +11,7 @@ const Debugger = () => {
     setValue(newValue);
   };
   return (
-    <Box width="40%">
+    <Box width="20%" style={{borderLeft: "2px solid hsla(0, 0%, 100%, 15%)"}}>
       <TabContext value={value}>
         {/* <Box> */}
         <TabList value={value} onChange={handleChange}>
@@ -22,7 +22,7 @@ const Debugger = () => {
         {/* </Box> */}
         <TabPanel value="1">Console</TabPanel>
         <TabPanel value="2">Inspect</TabPanel>
-        <TabPanel value="3">Configure</TabPanel>
+        <TabPanel value="3"><img src="https://i.imgur.com/C0DfYt0.png" style={{position: "relative", left: "-15px", top: "-25px", width: "300px", filter: "invert(100%)"}}/></TabPanel>
       </TabContext>
     </Box>
   );

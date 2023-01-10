@@ -56,6 +56,7 @@ const TopNavbar: FC<Props> = ({ position = 'fixed' }) => {
         sx={{
           transition: '0.5s all ease-in-out',
           backgroundColor: theme.palette.background.default,
+          borderBottom: "2px solid hsla(0, 0%, 100%, 15%)"
         }}
       >
         <Toolbar>
